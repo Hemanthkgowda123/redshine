@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A 10-Stage Surprise ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-pink: #ff477e;
+            --glass-white: rgba(255, 255, 255, 0.25);
+            --teddy-brown: #a67c52;
+            --teddy-dark: #8e653f;
+            --transition-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(-45deg, #ffafbd, #ffc3a0, #ee9ca7, #ffdde1);
+            background-size: 400% 400%;
+            animation: gradientMove 10s ease infinite;
+            font-family: 'Quicksand', sans-serif;
+            overflow: hidden;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- PROGRESS BAR --- */
+        .progress-container {
+            position: fixed;
+            top: 20px;
+            width: 80%;
+            max-width: 400px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            z-index: 100;
+        }
+
+        #progress-bar {
+            width: 0%;
+            height: 100%;
+            background: var(--primary-pink);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        /* --- GLASS CARD --- */
+        .glass-card {
+            background: var(--glass-white);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 40px;
+            padding: 40px 30px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            z-index: 10;
+            width: 90%;
+            max-width: 450px;
+            position: relative;
+        }
+
+        /* --- TEDDY --- */
+        .teddy-container {
+            position: relative;
+            width: 140px;
+            height: 120px;
+            margin: 0 auto 10px;
+            transition: transform 0.6s var(--transition-bounce);
+        }
+        .sway { transform: rotate(-8deg) scale(1.1); }
+
+        .teddy-head {
+            background: var(--teddy-brown);
+            width: 80px; height: 70px;
+            border-radius: 50%;
+            position: absolute;
+            top: 10px; left: 30px;
+            z-index: 5;
+        }
+        .teddy-body {
+            background: var(--teddy-dark);
+            width: 90px; height: 75px;
+            border-radius: 50% 50% 40% 40%;
+            position: absolute;
+            top: 50px; left: 25px;
+            z-index: 4;
+            animation: breathe 3s ease-in-out infinite;
+        }
+        .ear { background: var(--teddy-brown); width: 25px; height: 25px; border-radius: 50%; position: absolute; top: 5px; }
+        .ear-l { left: 25px; } .ear-r { right: 25px; }
+        .eye { width: 10px; height: 10px; background: #222; border-radius: 50%; position: absolute; top: 25px; }
+        .eye-l { left: 20px; } .eye-r { right: 20px; }
+
+        /* --- TEXT & BUTTONS --- */
+        .title { color: var(--primary-pink); font-size: 1.8rem; margin: 10px 0; }
+        .content-text { color: #444; font-size: 1.1rem; line-height: 1.6; min-height: 90px; }
+
+        .btn-wrapper { min-height: 100px; display: flex; justify-content: center; align-items: center; gap: 15px; }
+
+        .yes-button, .next-button {
+            background: linear-gradient(45deg, var(--primary-pink), #ff7096);
+            color: white; border: none; padding: 15px 40px;
+            font-size: 1.1rem; font-weight: 700; border-radius: 50px;
+            cursor: pointer; box-shadow: 0 10px 20px rgba(255, 71, 126, 0.4);
+            transition: all 0.3s var(--transition-bounce);
+        }
+
+        .no-button {
+            background: rgba(108, 117, 125, 0.1);
+            color: #6c757d; border: 2px solid #6c757d;
+            padding: 12px 30px; border-radius: 50px; cursor: pointer;
+        }
+
+        .heart { position: absolute; pointer-events: none; animation: floatUp 4s linear infinite; }
+
+        @keyframes floatUp {
+            0% { transform: translateY(110vh) scale(0.5); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+        .fade-in { animation: fadeIn 0.5s ease forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+    </style>
+</head>
+<body>
+
+    <div class="progress-container">
+        <div id="progress-bar"></div>
+    </div>
+
+    <div id="hearts-container"></div>
+
+    <div class="glass-card" id="card">
+        <div class="teddy-container" id="teddy-box">
+            <div class="ear ear-l"></div><div class="ear ear-r"></div>
+            <div class="teddy-head"><div class="eye eye-l"></div><div class="eye eye-r"></div></div>
+            <div class="teddy-body"></div>
+        </div>
+
+        <h1 class="title" id="display-title">Will you be my Valentine? ❤️</h1>
+        <p class="content-text" id="display-text">I've been waiting a long time to ask you this...</p>
+        
+        <div class="btn-wrapper" id="btn-container">
+            <button class="yes-button" id="yesBtn" onclick="handleInteraction()">Yes</button>
+            <button class="no-button" id="noBtn">No</button>
+        </div>
+    </div>
+
+    <script>
+        let currentStage = 0;
+        const totalStages = 10;
+        
+        const stages = [
+            { title: "Stage 1: You Said Yes! 😍", text: "I'm so happy! But I can't just stop there. I have 9 more things to tell you...", button: "I'm Listening..." },
+            { title: "Stage 2: That Smile ✨", text: "The way your face lights up when you're happy is the most beautiful thing I've ever seen.", button: "Next..." },
+            { title: "Stage 3: Your Kindness 🤝", text: "You have such a big heart. The way you care for people inspires me to be a better person.", button: "Go on..." },
+            { title: "Stage 4: Our Inside Jokes 😂", text: "No one makes me laugh like you do. Even the silliest things become core memories with you.", button: "Keep going!" },
+            { title: "Stage 5: My Safe Place 🏠", text: "Life gets crazy sometimes, but being with you feels like coming home. You are my peace.", button: "Stage 6" },
+            { title: "Stage 6: Your Ambition 🚀", text: "Watching you chase your dreams and work hard makes me so incredibly proud of you.", button: "Almost there..." },
+            { title: "Stage 7: The Little Things ☕", text: "I love the way you drink your coffee, how you talk about things you love, and even your morning hair.", button: "Aww..." },
+            { title: "Stage 8: A Promise 💍", text: "I promise to always be your biggest fan, your shoulder to cry on, and your partner in crime.", button: "One more!" },
+            { title: "Stage 9: The Future ♾️", text: "I don't know exactly what the future holds, but I know I want you by my side for all of it.", button: "The Final Surprise" },
+            { title: "Stage 10: I Love You ❤️", text: "You aren't just my Valentine; you're my best friend and my everything. Forever and always.", button: "Celebrate! 🎉" }
+        ];
+
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const progressBar = document.getElementById('progress-bar');
+        const titleEl = document.getElementById('display-title');
+        const textEl = document.getElementById('display-text');
+        const btnContainer = document.getElementById('btn-container');
+
+        // Initial No Button logic
+        noBtn.addEventListener('mouseover', () => {
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            noBtn.style.position = "fixed";
+            noBtn.style.left = x + "px";
+            noBtn.style.top = y + "px";
+            
+            const curSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
+            yesBtn.style.fontSize = (curSize * 1.1) + "px";
+            yesBtn.style.padding = "20px 50px";
+        });
+
+        function handleInteraction() {
+            document.getElementById('teddy-box').classList.toggle('sway');
+            
+            if (currentStage < stages.length) {
+                const s = stages[currentStage];
+                
+                // Update Progress
+                currentStage++;
+                progressBar.style.width = (currentStage / totalStages) * 100 + "%";
+
+                // Update Content with Animation
+                const card = document.getElementById('card');
+                card.classList.remove('fade-in');
+                void card.offsetWidth; 
+                card.classList.add('fade-in');
+
+                titleEl.innerText = s.title;
+                textEl.innerText = s.text;
+                btnContainer.innerHTML = `<button class="next-button" onclick="handleInteraction()">${s.button}</button>`;
+            } else {
+                // Final Celebration
+                titleEl.innerText = "Forever Yours! 🥰";
+                textEl.innerText = "Thank you for going through this journey with me. I love you!";
+                btnContainer.innerHTML = "";
+                for(let i=0; i<100; i++) setTimeout(createHeart, i * 50);
+            }
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = Math.random() * 20 + 15 + 'px';
+            heart.style.animationDuration = Math.random() * 2 + 2 + 's';
+            document.getElementById('hearts-container').appendChild(heart);
+            setTimeout(() => heart.remove(), 4000);
+        }
+        setInterval(createHeart, 400);
+    </script>
+</body>
+</html>
